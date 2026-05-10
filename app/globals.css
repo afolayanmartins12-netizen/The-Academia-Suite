@@ -1,0 +1,274 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* Light Mode - Silver/White Mesh */
+:root {
+  --background: oklch(0.98 0.005 240);
+  --foreground: oklch(0.15 0.02 150);
+  --card: oklch(1 0 0 / 0.6);
+  --card-foreground: oklch(0.15 0.02 150);
+  --popover: oklch(1 0 0 / 0.8);
+  --popover-foreground: oklch(0.15 0.02 150);
+  --primary: oklch(0.45 0.12 145);
+  --primary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.96 0.01 240);
+  --secondary-foreground: oklch(0.25 0.02 150);
+  --muted: oklch(0.94 0.01 240);
+  --muted-foreground: oklch(0.45 0.02 150);
+  --accent: oklch(0.55 0.14 145);
+  --accent-foreground: oklch(0.98 0 0);
+  --destructive: oklch(0.55 0.22 27);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.88 0.01 240 / 0.5);
+  --input: oklch(0.92 0.01 240);
+  --ring: oklch(0.45 0.12 145);
+  --chart-1: oklch(0.45 0.12 145);
+  --chart-2: oklch(0.55 0.14 145);
+  --chart-3: oklch(0.65 0.10 145);
+  --chart-4: oklch(0.75 0.08 145);
+  --chart-5: oklch(0.35 0.10 145);
+  --radius: 1rem;
+  --glass: oklch(1 0 0 / 0.35);
+  --glass-border: oklch(1 0 0 / 0.6);
+  --mesh-1: oklch(0.96 0.01 240);
+  --mesh-2: oklch(0.92 0.02 200);
+  --success: oklch(0.55 0.14 145);
+  --warning: oklch(0.65 0.15 75);
+}
+
+/* Dark Mode - Deep Green/Black Mesh */
+.dark {
+  --background: oklch(0.12 0.02 150);
+  --foreground: oklch(0.95 0.01 145);
+  --card: oklch(0.15 0.03 150 / 0.45);
+  --card-foreground: oklch(0.95 0.01 145);
+  --popover: oklch(0.15 0.03 150 / 0.8);
+  --popover-foreground: oklch(0.95 0.01 145);
+  --primary: oklch(0.55 0.14 145);
+  --primary-foreground: oklch(0.12 0.02 150);
+  --secondary: oklch(0.2 0.03 150);
+  --secondary-foreground: oklch(0.95 0.01 145);
+  --muted: oklch(0.22 0.03 150);
+  --muted-foreground: oklch(0.65 0.03 145);
+  --accent: oklch(0.45 0.12 145);
+  --accent-foreground: oklch(0.95 0.01 145);
+  --destructive: oklch(0.45 0.18 27);
+  --destructive-foreground: oklch(0.95 0 0);
+  --border: oklch(0.3 0.04 150 / 0.5);
+  --input: oklch(0.2 0.03 150);
+  --ring: oklch(0.55 0.14 145);
+  --chart-1: oklch(0.55 0.14 145);
+  --chart-2: oklch(0.65 0.12 145);
+  --chart-3: oklch(0.45 0.10 145);
+  --chart-4: oklch(0.75 0.08 145);
+  --chart-5: oklch(0.35 0.08 145);
+  --glass: oklch(0.15 0.03 150 / 0.35);
+  --glass-border: oklch(0.3 0.04 150 / 0.6);
+  --mesh-1: oklch(0.1 0.02 150);
+  --mesh-2: oklch(0.15 0.03 145);
+  --success: oklch(0.55 0.14 145);
+  --warning: oklch(0.65 0.15 75);
+}
+
+@theme inline {
+  --font-sans: 'SF Pro Display', 'Geist', system-ui, sans-serif;
+  --font-mono: 'SF Mono', 'Geist Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+  --color-mesh-1: var(--mesh-1);
+  --color-mesh-2: var(--mesh-2);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  /* Use 'ring' for focus instead of 'outline' so it follows your curves */
+  *:focus-visible {
+    @apply outline-none ring-2 ring-ring/50 ring-offset-2 ring-offset-background;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Replace the border lines in your .glass-card */
+.glass-card {
+  backdrop-filter: blur(25px) saturate(160%);
+  -webkit-backdrop-filter: blur(25px) saturate(160%);
+  background: var(--glass);
+  
+  /* FIX: Use standard border instead of border-image */
+  border: 1px solid var(--glass-border); 
+  border-radius: var(--radius-2xl); /* Force the roundness here */
+  
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    0 8px 32px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  position: relative;
+}
+
+/* Frosted noise texture overlay */
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+.dark .glass-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border); /* Use the variable we defined */
+  box-shadow: 
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    0 8px 32px rgba(39, 38, 38, 0.15),
+    inset 0 1px 0 rgba(40, 146, 75, 0.08);
+}
+
+/* Dark mode text contrast enhancement */
+.dark .text-foreground {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.dark .text-muted-foreground {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Opaque Dropdown for readability */
+.dropdown-opaque {
+  backdrop-filter: none;
+  background: var(--background);
+  border: 1px solid var(--border);
+}
+
+/* Side Drawer Glass */
+.drawer-glass {
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  background: var(--glass);
+}
+
+/* Mesh Background */
+.mesh-bg {
+  background: 
+    radial-gradient(ellipse at 20% 20%, var(--mesh-2) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, var(--mesh-2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, var(--mesh-2) 0%, transparent 70%),
+    var(--mesh-1);
+}
+
+/* Radar Pulse Animation */
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.radar-pulse {
+  animation: radar-pulse 2s ease-out infinite;
+}
+
+/* Spark Animation */
+@keyframes spark {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.spark-animate {
+  animation: spark 1.5s ease-in-out infinite;
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+/* Slide in from right */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out forwards;
+}
+
+/* Fade backdrop */
+@keyframes fade-backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-backdrop {
+  animation: fade-backdrop 0.2s ease-out forwards;
+}

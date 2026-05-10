@@ -1,0 +1,39 @@
+This **Project Function** section defines how the internal logic of your app works. It translates your blueprint into "Functional Requirements"—basically, a list of what the app must *do* to be successful.
+
+### 1. Attendance Verification Function (The "Pulse")
+This function replaces the manual link-and-code system. It uses "Proximity Logic" to verify a student's presence.
+*   **Verification Check:** The app listens for a specific BLE (Bluetooth Low Energy) packet. If detected, it compares the packet’s unique ID against the student’s registered courses.
+*   **Distance Calculation:** It measures the **RSSI (Signal Strength)**. If the signal is too weak, the app concludes the student is outside the hall and disables the "Mark" button.
+*   **Device Integrity Check:** The function queries the phone’s hardware ID. If the ID does not match the one stored in the local database during signup, it flags the account for "Proxy Attendance."
+
+### 2. The "Verified Relay" Function
+This ensures the signal reaches the back of the hall in large classes.
+*   **Relay Logic:** Once a student’s attendance is successfully marked, a background "Relay Service" starts. It turns the student's phone into a temporary broadcaster to repeat the lecturer’s signal.
+*   **Course Filtering:** Before starting the relay, the app checks the user’s `registered_courses` table. The relay *only* activates if the student is officially enrolled in that specific class, preventing signal interference from outsiders.
+
+### 3. Edge AI Processing Function (Offline LLM)
+This is how the AI "thinks" without the cloud.
+*   **Local Inference:** When a user asks a question, the app sends the prompt to the **MLC LLM engine** running on the phone’s GPU.
+*   **Contextual RAG (Retrieval-Augmented Generation):** If a student asks about a specific handout, this function "reads" the local PDF text, extracts the relevant paragraphs, and feeds them to the LLM so it can answer based *only* on the lecturer's material.
+
+
+### 4. Smart CGPA & Academic Forecasting
+*   **What-If Calculation:** This function takes the user’s current total units and points. It allows them to input "estimated" grades for future exams and recalculates the projected CGPA in real-time.
+*   **Alert Trigger:** This function monitors the `attendance_records` table. If the count of "Present" divided by "Total Lectures" falls below **0.70 (70%)**, it triggers a local notification to warn the student.
+
+### 5. Background Document Sync
+*   **Silent Listener:** The app runs a background service that listens for **Firebase Cloud Messaging (FCM)** "data" messages (not visible notifications).
+*   **Conditional Download:** When a "New PDF" signal arrives, the function checks the student's `level` and `department`. If it matches, it triggers an asynchronous download task to save the file to the internal storage.
+
+### 6. Local Financial Ledger
+*   **Expense Categorization:** A simple function that logs `amount`, `category`, and `date`. 
+*   **Budgeting Logic:** It calculates the remaining "Daily Allowance" by subtracting the month's total expenses from the user-defined "Monthly Budget."
+
+---
+
+### **Internal System Flow**
+1.  **Input Layer:** BLE Signal, User Grade Entry, or Lecturer PDF Signal.
+2.  **Processing Layer:** SQLite Queries, BLE Validation, or LLM Inference.
+3.  **Output Layer:** Updated CGPA, Attendance Token, or Summarized Note.
+
+**You should save this "Project Function" list alongside your blueprint.** It explains *how* the app thinks. Should we move on to the **Database Schema** (the actual tables) or the **Folder Structure** for your React Native project?

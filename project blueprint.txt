@@ -1,0 +1,77 @@
+Here is the clean, structured blueprint for your **Offline Academia Suite**. You can copy and save this into your notes or a project documentation file.
+
+---
+
+# 🎓 Project Blueprint: Offline Academia Suite
+**Project Goal:** To create a data-efficient, high-performance student assistant that functions entirely offline, focusing on massive-scale attendance, local AI, and academic management.
+
+---
+
+## 🏗 Pillar 1: High-Speed "Pulse" Attendance
+**Objective:** Mark 1,000+ students simultaneously without internet or manual codes.
+
+*   **Logic:** **BLE Beacon Broadcasting.**
+    *   **Lecturer Role:** Acts as a "Peripheral" (Broadcaster). One tap sends out a unique Service UUID.
+    *   **Student Role:** Acts as a "Central" (Listener). The app uses **Passive Scanning** to detect the lecturer’s signal.
+*   **The "Verified Course Relay":** 
+    *   To cover large halls, the app uses a mesh-lite relay.
+    *   **Constraint:** A student's phone will only "re-broadcast" the signal to help those further back if that student is **registered for that specific course** in their local database.
+*   **Security:**
+    *   **Hardware Lock:** One account per **Device ID** (UUID/IMEI).
+    *   **Biometric Anchor:** Fingerprint scan required to activate the "Mark Attendance" button once the signal is detected.
+    *   **Proximity Check:** Uses RSSI (Signal Strength) to ensure the student is actually in the room, not in the parking lot.
+
+---
+
+## 🤖 Pillar 2: The "AI Brain" (Edge AI)
+**Objective:** Provide a smart tutor that costs zero data to use.
+
+*   **Implementation:** **MLC LLM SDK** integrated into React Native.
+*   **Model:** 4-bit quantized **Phi-3-mini** or **Gemma-2B** (stored locally, ~2GB).
+*   **Features:**
+    *   **Contextual Summarizer:** Summarizes downloaded PDFs or pasted notes.
+    *   **Quiz Generator:** Creates flashcards and MCQs based on specific course materials.
+    *   **Formula Assistant:** Explains mathematical or CS logic offline.
+
+---
+
+## 📂 Pillar 3: Push-to-Offline Document System
+**Objective:** Ensure students have materials even if they miss a group chat link.
+
+*   **Flow:** 
+    1.  **Onboarding:** Student selects **Department** and **Level** (e.g., CS, 300L).
+    2.  **Notification:** Lecturer uploads a PDF; a **Silent Firebase Cloud Message (FCM)** is sent to all 300L CS students.
+    3.  **Auto-Sync:** The app wakes up in the background and downloads the file whenever the student has a brief internet connection.
+*   **Storage:** Categorized by Course Code in an in-app **Document Vault**.
+
+---
+
+## 📊 Pillar 4: Utility & Lifestyle Suite
+**Objective:** Replace multiple apps with one integrated dashboard.
+
+*   **CGPA Engine:** Advanced calculator with "What-If" mode and "Target Grade" forecasting.
+*   **Attendance Tracker:** Visual alerts (e.g., "72% - Warning: You are near the 70% limit").
+*   **Financial Tracker:** Offline logger for daily expenses (Food, Transport, Handouts) with budget alerts.
+*   **Dynamic Timetable:** Local alarms for lectures and automatic "Focus Mode" triggers.
+
+---
+
+## 🛠 Technical Stack
+| Category | Technology |
+| :--- | :--- |
+| **Framework** | React Native (CLI) |
+| **Language** | JavaScript / TypeScript |
+| **Local Database** | SQLite (via `react-native-sqlite-storage`) |
+| **Bluetooth** | `react-native-ble-manager` & `react-native-peripheral` |
+| **AI Engine** | MLC LLM (Local Deployment) |
+| **Push/Sync** | Firebase Cloud Messaging (FCM) |
+| **Hardware Info** | `react-native-device-info` (for Device ID lock) |
+
+---
+
+### 🚀 Immediate Next Steps
+1.  **Environment Setup:** Initialize a React Native CLI project.
+2.  **Database Design:** Create the SQLite tables for `users`, `courses`, `attendance_logs`, and `expenses`.
+3.  **Bluetooth Prototype:** Test a simple "Broadcaster/Listener" script between two phones to verify the signal speed.
+
+**Would you like me to generate the first SQL schema to set up your database tables?**
